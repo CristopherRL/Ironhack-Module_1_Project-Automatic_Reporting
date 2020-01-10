@@ -1,24 +1,19 @@
 ######################################### IMPORTING LIBRARIES #################################################
-import pandas as pd
 import re
 
 def cleaning_data(raw_data):
 
     proc_data = raw_data
-    print(proc_data.head(5)) ### DELETE
-    print(proc_data.dtypes) #### DELETE
-    ############################################## CHANGING DATA ###########################################
 
     #### AGE
     def real_age(x):
-        str(x)
 
         if x is None:
             return 999  # to identify which doesnt have age information
 
         else:
             y = re.findall('[\d]+', x)  # extracting y from "y years". The last on is '99 years'
-            #y = re.split(' ',x) #another solution to prove > no results, same error in script
+
             if int(y[0]) < 100:
                 return int(y[0])
             else:
@@ -39,7 +34,7 @@ def cleaning_data(raw_data):
 
     #### NAME
     proc_data['name'] = proc_data['name'].str.upper()
-    proc_data.rename(columns={'name': 'FullName'})
+    proc_data.rename( columns = {'name':'FullName'}, inplace=True )
 
     #### SOURCE
     def ind(x):
@@ -58,32 +53,28 @@ def cleaning_data(raw_data):
     proc_data['worth_BUSD'] = proc_data['worth'].str.replace(' BUSD', '')
 
     ############################################## DELETING DATA ###########################################
-
     proc_data.drop(
-        columns=['dif', 'lastName', 'country', 'Source', 'Unnamed: 0', 'worth', 'worthChange', 'realTimeWorth'],
+        columns=['lastName', 'country', 'Source', 'Unnamed: 0', 'worth', 'worthChange', 'realTimeWorth'],
         inplace=True)
 
     ############################################## CHANGING DATA TYPE ######################################
-
     # Changing every column to the correct type
     proc_data['id'] = proc_data['id'].astype('object')
     proc_data['position'] = proc_data['position'].astype('int64')
     proc_data['worth_BUSD'] = proc_data['worth_BUSD'].astype('float64')
-    proc_data['worthChange_MUSD'] = proc_data['worthChange_MUSD'].astype('float64')
 
     ##################  DATA TYPES ##################
     # Changing every column to the correct type
     proc_data['id'] = proc_data['id'].astype('object')
     proc_data['position'] = proc_data['position'].astype('int64')
     proc_data['worth_BUSD'] = proc_data['worth_BUSD'].astype('float64')
-    proc_data['worthChange_MUSD'] = proc_data['worthChange_MUSD'].astype('float64')
 
     ############################################## CHANGING DATAFRAME #######################################
-    new_order = ['position', 'id', 'FullName', 'worth_BUSD', 'worthChange_MUSD', 'Industry', 'Company', 'age', 'gender',
+    new_order = ['position', 'id', 'FullName', 'worth_BUSD', 'Industry', 'Company', 'age', 'gender',
                  'image']
     proc_data = proc_data[new_order]
 
     # Exporting clean data to csv
-    proc_data.to_csv('../data/processed/proc_data.csv', sep='|', index=False)
+    proc_data.to_csv('data/processed/proc_data.csv', sep=';', index=False)
 
     return proc_data

@@ -3,13 +3,10 @@ import pandas as pd
 from sqlalchemy import create_engine
 
 ######################################### IMPORTING DATA #################################################
-#def get_data():
 def getting_data(file_name):
 
     # Using sqlalchemy to connect with the downloaded file which contains the messy data of "Forbes"
-    #file_name = 'CristopherRL'
-    data_location = "../data/raw/"
-    engine = create_engine(f'sqlite:///{data_location}{file_name}')
+    engine = create_engine(f'sqlite:///data/raw/{file_name}')
 
     # Creating a query to incorporate all 3 tables in one with all the necessary information
     query = """ 
@@ -36,8 +33,5 @@ def getting_data(file_name):
 
     # Importing data from db file to 'raw_data' dataframe
     raw_data = pd.read_sql_query(query, engine)
-
-    ### ONLY UNTIL I CAN BE ABLE TO SOLVE THE ERROR
-    raw_data.to_sql_query('../data/raw/raw_data.csv', sep='|', index=False)
 
     return raw_data

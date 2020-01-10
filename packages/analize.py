@@ -1,11 +1,9 @@
 ######################################### IMPORTING LIBRARIES #################################################
-import json
 import re
 import requests
 import pandas as pd
 from bs4 import BeautifulSoup
 from pandas_datareader import wb
-
 
 ### Getting clean data:
 def enriching_data(proc_data):
@@ -13,15 +11,16 @@ def enriching_data(proc_data):
     #### > Importing Json from Forbes.com to get 'country'
     forbes_url = 'https://www.forbes.com/ajax/list/data?year=2018&uri=billionaires&type=person'
     df = pd.read_json(forbes_url, orient='records')
-    # id_country.head(20)
-    name_country = df[['name', 'country', ]]
+    name_country = df[['name', 'country']]
     name_country.name = name_country.name.str.upper()
     # Merging this table with proc_data
     enriched_data = pd.merge(proc_data, name_country, left_on='FullName', right_on='name')
     enriched_data.drop('name', axis=1)
 
     ### Aggregation of enriched data
-    top = input('Please enter the number of top millionaries: ')  # until 1000 works well
+
+    #Indicating which is the toṕ
+    top = int(input('Please enter the number of top millionaries: '))  # until 1000 works well
 
     # Considering all position values over 'top' value, grouping Worth by Country, and sorting values
     meanW_country = enriched_data[enriched_data['position'] <= top].groupby('country')['worth_BUSD'].mean().sort_values(
@@ -58,7 +57,10 @@ def enriching_data(proc_data):
 
     for x in well_parsed:
         if len(x) != 8:
-            well_parsed.remove(x)  # only get list wich contains information about countries
+            well_parsed.remove(x)  # only get list which contains information about countries
+
+    #XXXXXXXXXXXXXXXXXX   DELETE  XXXXXXXXXXXXXXXXXXXXXXX
+    print(type(well_parsed))
 
     colnames = ['Countries', 'b1', 'b2', '2L', '3L', 'b3', 'b4', 'b5']
     data = well_parsed[1:]
@@ -87,4 +89,4 @@ def enriching_data(proc_data):
 
     table = meanW_GDPP
 
-    return table,top
+    return table, top
