@@ -1,13 +1,11 @@
 import argparse
-import pandas as pd #WAITING TO CORRECT ERROR
 
 from packages.acquire import getting_data
 from packages.wrangle import cleaning_data
 from packages.analize import enriching_data
 from packages.report import plotting_data
 
-### ONLY UNTIL I CAN BE ABLE TO SOLVE THE ERROR
-file_name = 'CristopherRL.db'
+file_name = "CristopherRL.db"
 
 def main():
 

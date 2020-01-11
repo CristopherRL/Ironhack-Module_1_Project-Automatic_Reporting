@@ -11,7 +11,7 @@ def enriching_data(proc_data):
     #### > Importing Json from Forbes.com to get 'country'
     forbes_url = 'https://www.forbes.com/ajax/list/data?year=2018&uri=billionaires&type=person'
     df = pd.read_json(forbes_url, orient='records')
-    name_country = df[['name', 'country']]
+    name_country = df.loc[:, ['name', 'country']]
     name_country.name = name_country.name.str.upper()
     # Merging this table with proc_data
     enriched_data = pd.merge(proc_data, name_country, left_on='FullName', right_on='name')
@@ -59,8 +59,6 @@ def enriching_data(proc_data):
         if len(x) != 8:
             well_parsed.remove(x)  # only get list which contains information about countries
 
-    #XXXXXXXXXXXXXXXXXX   DELETE  XXXXXXXXXXXXXXXXXXXXXXX
-    print(type(well_parsed))
 
     colnames = ['Countries', 'b1', 'b2', '2L', '3L', 'b3', 'b4', 'b5']
     data = well_parsed[1:]

@@ -1,3 +1,6 @@
 #INCLUDED BY MYSELF
-notebooks/prueba.ipynb
+/notebooks/prueba.ipynb
+/presentation
+presentation.odp
+..gitignore.swp
 

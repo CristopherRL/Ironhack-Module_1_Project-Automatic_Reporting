@@ -11,7 +11,9 @@ def plotting_data(table,top):
     fig = meanW_GDPP.plot(kind='barh', x='country', y='ratio_MUSD').get_figure()
 
     plt.xlabel('ratio_MUSD')
-    plt.title(f'TOP {top} - Comparing Billionaries with GDP by Industry')
+    plt.ylabel('countries')
+    plt.title(f'TOP {top} - Comparing Billionaries with GDP by Country')
     plt.grid(True)
 
-    fig.savefig(f'data/results/TOP{top}-Billionaries_by_Industry.pdf')
+    fig.savefig(f'data/results/TOP{top}-Billionaries_by_Industry.png')
+    print(f'Process finished! The plot is located in: data/results/TOP{top}-Billionaries_by_Country.png')
