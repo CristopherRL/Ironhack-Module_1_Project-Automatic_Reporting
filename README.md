@@ -9,7 +9,9 @@ take the specified data file located in the folder RAW
 
 
 #GETTING STARTED
+
 Open the 'main.py' file in the directory in your terminal.
 
 #DERIVERABLES
+
 Follow the instructions and based on your input and the data file located in the folder RAW, the script will give you the top-millionaires, creating a plot by country comparing mean fortune per millionaire divided by GDP per country  with the goal to have an approach about the differences of distribution in each country. 
