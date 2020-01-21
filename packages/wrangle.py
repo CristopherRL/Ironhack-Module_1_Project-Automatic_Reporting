@@ -52,6 +52,14 @@ def cleaning_data(raw_data):
     ### WORTH
     proc_data['worth_BUSD'] = proc_data['worth'].str.replace(' BUSD', '')
 
+    ### Another columns: See how I did it in notebook1.ipynb
+    # lastName > I have FullName, not necessary
+    # country > not enough data (64% nulls), it wil be taken by a json file from Forbes.com > analize.py
+    # Unnamed: 0 > it's the same column than "position" with a specific difference
+    # worth > new column based in this column
+    # worthChange > this columns is not used for any
+    # realTimeWorth > all values are nulls
+
     ############################################## DELETING DATA ###########################################
     proc_data.drop(
         columns=['lastName', 'country', 'Source', 'Unnamed: 0', 'worth', 'worthChange', 'realTimeWorth'],

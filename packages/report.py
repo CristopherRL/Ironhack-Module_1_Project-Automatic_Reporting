@@ -5,15 +5,12 @@ def plotting_data(table,top):
 
     meanW_GDPP = table
 
-    #x = list(meanW_GDPP.country)
-    #y = list(meanW_GDPP.ratio_MUSD)
-
     fig = meanW_GDPP.plot(kind='barh', x='country', y='ratio_MUSD').get_figure()
-
-    plt.xlabel('ratio_MUSD')
+    plt.xlabel('ratio_M')
     plt.ylabel('countries')
-    plt.title(f'TOP {top} - Comparing Billionaries with GDP by Country')
+    plt.title(f'TOP {top} - Comparing Mean Worth vs GDP per capita by Country')
     plt.grid(True)
-
+    plt.show()
     fig.savefig(f'data/results/TOP{top}-Billionaries_by_Industry.png')
-    print(f'Process finished! The plot is located in: data/results/TOP{top}-Billionaries_by_Country.png')
+
+    print(f'Plot has been saved! The file is located in: data/results/TOP{top}-Billionaries_by_Country.png')
